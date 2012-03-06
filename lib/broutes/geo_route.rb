@@ -7,6 +7,28 @@ module Broutes
       get_points.to_enum
     end
     
+    class << self
+      def from_hash(h)
+        @start_point = GeoPoint.from_hash(h['start_point']) if h['start_point']
+        @end_point = GeoPoint.from_hash(h['end_point']) if h['end_point']
+        @total_distance = h['total_distance']
+        @_total_ascent = h['total_ascent']
+        @_total_descent = h['total_descent']
+        @_points = h['points'].collect { |p| GeoPoint.from_hash(p) } if h['points']
+      end
+    end
+    
+    def to_hash
+      {
+        'start_point' => self.start_point.to_hash,
+        'end_point' => self.end_point.to_hash,
+        'total_distance' => self.total_distance,
+        'total_ascent' => self.total_ascent,
+        'total_descent' => self.total_ascent,
+        'points' => self.points.collect { |p| p.to_hash }
+      }
+    end
+    
     def add_point(lat, lon, elevation=nil)
       point = GeoPoint.new(lat, lon, elevation, 0)
       if @start_point

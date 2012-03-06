@@ -16,6 +16,10 @@ def random_elevation
   round_to(rand + rand(999), 3)
 end
 
+def random_distance
+  round_to(rand + rand(999), 3)
+end
+
 def round_to(number, decimal_places)
   if number
     if decimal_places > 0
