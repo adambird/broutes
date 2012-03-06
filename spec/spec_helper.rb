@@ -13,7 +13,7 @@ def random_lon
 end
 
 def random_elevation
-  rand + rand(999)
+  round_to(rand + rand(999), 3)
 end
 
 def round_to(number, decimal_places)
