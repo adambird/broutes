@@ -29,3 +29,7 @@ end
 def last(enum)
   enum.collect{|item| item}.reverse.first
 end
+
+def open_file(name)
+  File.open("#{Rake.application.original_dir}/spec/support/#{name}")
+end

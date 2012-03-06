@@ -1,6 +1,7 @@
 module Broutes
   require 'broutes/geo_route'
   require 'broutes/geo_point'
+  require 'broutes/formats'
 
   RAD_PER_DEG = 0.017453293  #  PI/180
   EARTH_RADIUS = 6371 #km
