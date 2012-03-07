@@ -9,12 +9,9 @@ module Broutes
     
     class << self
       def from_hash(h)
-        @start_point = GeoPoint.from_hash(h['start_point']) if h['start_point']
-        @end_point = GeoPoint.from_hash(h['end_point']) if h['end_point']
-        @total_distance = h['total_distance']
-        @_total_ascent = h['total_ascent']
-        @_total_descent = h['total_descent']
-        @_points = h['points'].collect { |p| GeoPoint.from_hash(p) } if h['points']
+        route = GeoRoute.new
+        h['points'].each { |p| route.add_point(p['lat'], p['lon'], p['elevation']) }
+        return route
       end
     end
     
@@ -57,7 +54,6 @@ module Broutes
       @_total_ascent ||= 0
     end
     
-
     def total_descent
       @_total_descent ||= 0
     end

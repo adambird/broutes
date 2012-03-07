@@ -4,7 +4,7 @@ Ruby gem for parsing and extracting common data structures from geo route file f
 
 ## Supported Formats
 
-+ :gpx_track [GPX Track](http://en.wikipedia.org/wiki/GPS_eXchange_Format)
+	:gpx_track [GPX Track](http://en.wikipedia.org/wiki/GPS_eXchange_Format)
 
 ## Usage
 
