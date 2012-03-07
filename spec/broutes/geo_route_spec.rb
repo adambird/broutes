@@ -130,4 +130,39 @@ describe GeoRoute do
       end    
     end
   end
+  describe "#hilliness" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+    
+    subject { @route.hilliness }
+    
+    context "when 1000 m ascent in 100km" do
+      before(:each) do
+        @route.stub(:total_distance) { 100 }
+        @route.stub(:total_ascent) { 1000 }
+      end
+      it "is 10" do
+        subject.should eq(10)
+      end
+    end
+    context "when 0 ascent in 100km" do
+      before(:each) do
+        @route.stub(:total_distance) { 100 }
+        @route.stub(:total_ascent) { 0 }
+      end
+      it "is 0" do
+        subject.should eq(0)
+      end
+    end
+    context "when 1000 ascent in 0km" do
+      before(:each) do
+        @route.stub(:total_distance) { 0 }
+        @route.stub(:total_ascent) { 1000 }
+      end
+      it "is 0" do
+        subject.should eq(0)
+      end
+    end
+  end
 end

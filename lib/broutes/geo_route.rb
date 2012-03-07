@@ -58,6 +58,10 @@ module Broutes
       @_total_descent ||= 0
     end
     
+    def hilliness
+      (total_distance > 0) ? (total_ascent / total_distance) : 0
+    end
+    
     private
     
     def get_points
