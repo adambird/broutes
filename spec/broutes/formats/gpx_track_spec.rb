@@ -6,10 +6,10 @@ describe Formats::GpxTrack do
       @file = open_file('single_lap_gpx_track.xml')
       @target = Formats::GpxTrack.new
       @route = GeoRoute.new
-      
-      Formats::GpxTrack.new.load(@file, @route)
+
+      @target.load(@file, @route)
     end
-      
+
     it "sets the start point lat" do
       @route.start_point.lat.should eq(52.9552055)
     end
@@ -25,14 +25,17 @@ describe Formats::GpxTrack do
     it "sets the total descent" do
       @route.total_descent.round.should eq(37)
     end
-    
+    it "sets the total time" do
+      @route.total_time.round.should eq(1231)
+    end
+
     context "when file doesn't have elevation" do
       before(:all) do
         @file = open_file('single_lap_gpx_track_no_elevation.xml')
         @target = Formats::GpxTrack.new
         @route = GeoRoute.new
 
-        Formats::GpxTrack.new.load(@file, @route)
+        @target.load(@file, @route)
       end
 
       it "sets the start point lat" do

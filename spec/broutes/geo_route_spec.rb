@@ -9,11 +9,11 @@ describe GeoRoute do
       @elevation = 35.6000000
       @new_point = GeoPoint.new(@lat, @lon, @elevation, 0)
     end
-    
+
     subject { @route.add_point(@lat, @lon, @elevation) }
-    
+
     context "when route is empty" do
-      
+
       it "sets the start point to the new_point" do
         subject
         @route.start_point.should eq(@new_point)
@@ -32,7 +32,7 @@ describe GeoRoute do
         @start_point = GeoPoint.new(random_lat, random_lon, random_elevation, 0)
         @route.add_point(@start_point.lat, @start_point.lon, @start_point.elevation)
       end
-      
+
       it "should not change start_point" do
         subject
         @route.start_point.should eq(@start_point)
@@ -46,7 +46,7 @@ describe GeoRoute do
         last(@route.points).distance.should eq(Maths.haversine_distance(@start_point, @new_point))
       end
     end
-    
+
     context "when route already has at least two points" do
       before(:each) do
         @start_point = GeoPoint.new(random_lat, random_lon, random_elevation)
@@ -67,7 +67,7 @@ describe GeoRoute do
           Maths.haversine_distance(@start_point, @next_point) +
           Maths.haversine_distance(@next_point, @new_point)
           )
-      end   
+      end
     end
   end
   describe "#process_elevation_delta" do
@@ -75,9 +75,9 @@ describe GeoRoute do
       @route = GeoRoute.new
       @next_point = GeoPoint.new(random_lat, random_lon, random_elevation)
     end
-    
+
     subject { @route.process_elevation_delta(@last_point, @next_point) }
-    
+
     context "when last_point is nil" do
       it "has an total_ascent of nil" do
         subject
@@ -99,7 +99,7 @@ describe GeoRoute do
       it "has an total_descent of zero" do
         subject
         @route.total_descent.should eq(0)
-      end    
+      end
     end
     context "when last_point is lower than the next point" do
       before(:each) do
@@ -113,7 +113,7 @@ describe GeoRoute do
       it "has an total_descent of zero" do
         subject
         @route.total_descent.should eq(0)
-      end    
+      end
     end
     context "when last_point is higher than the next point" do
       before(:each) do
@@ -127,16 +127,16 @@ describe GeoRoute do
       it "the delta is added to the total_descent" do
         subject
         round_to(@route.total_descent, 3).should eq(@delta)
-      end    
+      end
     end
   end
   describe "#hilliness" do
     before(:each) do
       @route = GeoRoute.new
     end
-    
+
     subject { @route.hilliness }
-    
+
     context "when 1000 m ascent in 100km" do
       before(:each) do
         @route.stub(:total_distance) { 100 }
@@ -165,4 +165,5 @@ describe GeoRoute do
       end
     end
   end
+
 end
