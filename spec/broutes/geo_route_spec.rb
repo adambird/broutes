@@ -139,7 +139,7 @@ describe GeoRoute do
 
     context "when 1000 m ascent in 100km" do
       before(:each) do
-        @route.stub(:total_distance) { 100 }
+        @route.stub(:total_distance) { 100000 }
         @route.stub(:total_ascent) { 1000 }
       end
       it "is 10" do
@@ -148,7 +148,7 @@ describe GeoRoute do
     end
     context "when 0 ascent in 100km" do
       before(:each) do
-        @route.stub(:total_distance) { 100 }
+        @route.stub(:total_distance) { 100000 }
         @route.stub(:total_ascent) { 0 }
       end
       it "is 0" do

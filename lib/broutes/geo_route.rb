@@ -77,8 +77,11 @@ module Broutes
       @total_distance.round if @total_distance
     end
 
+    # Public : Measure of how hilly the route is. Measured as total ascent (m) / distance (km)
+    #
+    # Returns Float measure
     def hilliness
-      (total_distance > 0) ? (total_ascent / total_distance) : 0
+      (total_distance > 0) ? (total_ascent * 1000 / total_distance) : 0
     end
 
     private
