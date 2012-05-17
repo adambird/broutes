@@ -35,6 +35,8 @@ module Broutes
         else
           @total_distance += Maths.haversine_distance(@end_point, point)
         end
+
+        @total_time = time - @start_point.time if time
       else
         @start_point = point
         @total_distance = distance || 0
@@ -63,11 +65,11 @@ module Broutes
       @_total_descent ||= 0
     end
 
-    # Public : Total time in seconds between the start point and end point
+    # Public : Total time in seconds
     #
     # Returns Fixnum time in seconds
     def total_time
-      @end_point.time - @start_point.time if @end_point.time && @start_point.time
+      @total_time
     end
 
     # Public : Total distance measured between points in whole metres
