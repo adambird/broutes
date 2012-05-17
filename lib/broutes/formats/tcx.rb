@@ -6,13 +6,19 @@ module Broutes::Formats
       doc = Nokogiri::XML(file)
       doc.css('Trackpoint').each do |node|
         location = point_location(node)
-        route.add_point(location[0], location[1], point_elevation(node), point_time(node))
+        route.add_point(location[0], location[1], point_elevation(node), point_time(node), point_distance(node))
       end
     end
 
     def point_location(node)
       if position_node = node.at_css('Position')
         [ position_node.at_css('LatitudeDegrees').inner_text.to_f, position_node.at_css('LongitudeDegrees').inner_text.to_f ]
+      end
+    end
+
+    def point_distance(node)
+      if distance_node = node.at_css('DistanceMeters')
+        distance_node.inner_text.to_f
       end
     end
 

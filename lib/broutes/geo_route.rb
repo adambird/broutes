@@ -1,7 +1,7 @@
 module Broutes
   class GeoRoute
 
-    attr_reader :start_point, :end_point, :total_distance
+    attr_reader :start_point, :end_point
 
     def points
       get_points.to_enum
@@ -27,16 +27,20 @@ module Broutes
       }
     end
 
-    def add_point(lat, lon, elevation=nil, time=nil)
+    def add_point(lat, lon, elevation=nil, time=nil, distance=nil)
       point = GeoPoint.new(lat, lon, elevation, 0, time)
       if @start_point
-        @total_distance += Maths.haversine_distance(@end_point, point)
-        point.distance = @total_distance
+        if distance
+          @total_distance = distance
+        else
+          @total_distance += Maths.haversine_distance(@end_point, point)
+        end
       else
         @start_point = point
-        @total_distance = 0
+        @total_distance = distance || 0
       end
 
+      point.distance = @total_distance
       process_elevation_delta(@end_point, point)
 
       @end_point = point
@@ -64,6 +68,13 @@ module Broutes
     # Returns Fixnum time in seconds
     def total_time
       @end_point.time - @start_point.time if @end_point.time && @start_point.time
+    end
+
+    # Public : Total distance measured between points in whole metres
+    #
+    # Returns Float distance in m
+    def total_distance
+      @total_distance.round if @total_distance
     end
 
     def hilliness

@@ -5,7 +5,7 @@ module Broutes
   require 'broutes/formats'
 
   RAD_PER_DEG = 0.017453293  #  PI/180
-  EARTH_RADIUS = 6371 #km
+  EARTH_RADIUS = 6371000 #m
 
   class << self
     def from_file(file, format)

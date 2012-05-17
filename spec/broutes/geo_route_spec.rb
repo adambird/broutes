@@ -39,7 +39,7 @@ describe GeoRoute do
       end
       it "should set the total distance to be haversine distance between the start_point and the new point" do
         subject
-        @route.total_distance.should eq(Maths.haversine_distance(@start_point, @new_point))
+        @route.total_distance.should eq(Maths.haversine_distance(@start_point, @new_point).round)
       end
       it "set the distance of the point to be the haverside_distance between the start_point" do
         subject
@@ -57,8 +57,8 @@ describe GeoRoute do
       it "should set the total distance to haversine distance along all points" do
         subject
         @route.total_distance.should eq(
-          Maths.haversine_distance(@start_point, @next_point) +
-          Maths.haversine_distance(@next_point, @new_point)
+          Maths.haversine_distance(@start_point, @next_point).round +
+          Maths.haversine_distance(@next_point, @new_point).round
           )
       end
       it "set the distance of the point to haversine distance along all points" do

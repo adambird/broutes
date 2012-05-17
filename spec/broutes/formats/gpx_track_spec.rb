@@ -17,7 +17,7 @@ describe Formats::GpxTrack do
       @route.start_point.lon.should eq(-1.1558583)
     end
     it "sets the total distance" do
-      round_to(@route.total_distance, 3).should eq(7.088)
+      @route.total_distance.should eq(7088)
     end
     it "sets the total ascent" do
       @route.total_ascent.round.should eq(34)
@@ -45,7 +45,7 @@ describe Formats::GpxTrack do
         @route.start_point.lon.should eq(-1.216092432889)
       end
       it "sets the total distance" do
-        round_to(@route.total_distance, 3).should eq(123.955)
+        @route.total_distance.should eq(123955)
       end
       it "sets the total ascent" do
         @route.total_ascent.should eq(0)

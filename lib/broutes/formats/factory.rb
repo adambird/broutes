@@ -3,7 +3,7 @@ module Broutes::Formats
   class Factory
     # Public : factory method
     #
-    # format   - Symbol describing the format [:gpx_track, :tcx]
+    # format   - Symbol describing the format [:gpx_track, :tcx, :fit]
     #
     # Returns a route file parser
     def get(format)
@@ -12,6 +12,8 @@ module Broutes::Formats
         GpxTrack.new
       when :tcx
         Tcx.new
+      when :fit
+        Fit.new
       end
     end
   end
