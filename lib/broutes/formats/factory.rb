@@ -8,12 +8,12 @@ module Broutes::Formats
     # Returns a route file parser
     def get(format)
       case format
-      when :gpx_track
+      when :gpx_track, 'application/gpx+xml'
         GpxTrack.new
-      when :tcx
+      when :tcx, 'application/vnd.garmin.tcx+xml'
         Tcx.new
-      when :fit
-        Fit.new
+      when :fit, 'application/vnd.ant.fit'
+        FitFile.new
       end
     end
   end
