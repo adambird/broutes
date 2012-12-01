@@ -21,8 +21,8 @@ describe Formats::Factory do
       end
     end
     context "when unrecognised" do
-      it "returns nil" do
-        factory.get(random_string).should be_nil
+      it "raises ArgumentError nil" do
+        expect { factory.get(random_string) }.to raise_error(ArgumentError)
       end
     end
   end
