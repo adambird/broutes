@@ -4,9 +4,12 @@ module Broutes::Formats
   class Tcx
     def load(file, route)
       doc = Nokogiri::XML(file)
+      Broutes.logger.info {"Loaded #{file} into #{doc.to_s.slice(0, 10)}"}
+
       doc.css('Trackpoint').each do |node|
         if location = point_location(node)
-          route.add_point(location[0], location[1], point_elevation(node), point_time(node), point_distance(node))
+          p = route.add_point(location[0], location[1], point_elevation(node), point_time(node), point_distance(node))
+          Broutes.logger.debug { "Loaded #{p}"}
         end
       end
     end

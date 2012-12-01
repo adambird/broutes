@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:adambird/fit.git
-  revision: 9a09938858ebc5a949c7d65d08e079b5d82518d0
+  revision: e65ea01eb20dea137dd976e016a25b75609d3117
   specs:
-    fit (0.0.1)
+    fit (0.0.2)
       activesupport
       bindata (~> 1.4)
 

@@ -5,8 +5,12 @@ module Broutes::Formats
 
     def load(file, route)
       fit_file = Fit::File.read(file)
-      fit_file.records.select {|r| r.content.record_type == :record }.collect { |r| r.content }.each do |pr|
-        route.add_point(convert_position(pr.position_lat), convert_position(pr.position_long), pr.altitude, pr.timestamp, pr.distance)
+      fit_file.records.select {|r| r.content && r.content.record_type == :record }.collect { |r| r.content }.each do |pr|
+        begin
+          route.add_point(convert_position(pr.position_lat), convert_position(pr.position_long), pr.altitude, pr.timestamp, pr.distance)
+        rescue => e
+          Broutes.logger.debug {"#{e.message} for #{pr}"}
+        end
       end
     end
 

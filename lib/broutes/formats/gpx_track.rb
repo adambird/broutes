@@ -2,10 +2,14 @@ require 'nokogiri'
 
 module Broutes::Formats
   class GpxTrack
+
     def load(file, route)
       doc = Nokogiri::XML(file)
+      Broutes.logger.info {"Loaded #{file} into #{doc.to_s.slice(0, 10)}"}
+
       doc.css('trkpt').each do |node|
-        route.add_point(node['lat'].to_f, node['lon'].to_f, point_elevation(node), point_time(node))
+        p = route.add_point(node['lat'].to_f, node['lon'].to_f, point_elevation(node), point_time(node))
+        Broutes.logger.debug { "Loaded #{p}"}
       end
     end
 

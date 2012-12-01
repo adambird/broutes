@@ -3,6 +3,7 @@ require 'rspec'
 require "#{Rake.application.original_dir}/lib/broutes"
 
 include Broutes
+Broutes.logger.level = Logger::FATAL
 
 def random_lat
   rand + rand(180)

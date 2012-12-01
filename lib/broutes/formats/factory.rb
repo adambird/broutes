@@ -14,6 +14,8 @@ module Broutes::Formats
         Tcx.new
       when :fit, 'application/vnd.ant.fit'
         FitFile.new
+      else
+        raise ArgumentError.new("Unrecognised format #{format}. Supported formats are :gpx_track, :tcx, :fit")
       end
     end
   end
