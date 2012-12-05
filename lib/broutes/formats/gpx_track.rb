@@ -7,10 +7,12 @@ module Broutes::Formats
       doc = Nokogiri::XML(file)
       Broutes.logger.info {"Loaded #{file} into #{doc.to_s.slice(0, 10)}"}
 
+      i = 0
       doc.css('trkpt').each do |node|
         p = route.add_point(node['lat'].to_f, node['lon'].to_f, point_elevation(node), point_time(node))
-        Broutes.logger.debug { "Loaded #{p}"}
+        i += 1
       end
+      Broutes.logger.info {"Loaded #{i} data points"}
     end
 
     def point_elevation(node)
