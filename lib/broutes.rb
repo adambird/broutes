@@ -9,12 +9,9 @@ module Broutes
   EARTH_RADIUS = 6371000 #m
 
   def self.from_file(file, format)
+    raise "unable to interpret format #{format}" unless processor = Formats::Factory.new.get(format)
+    Broutes.logger.debug {"found processor #{processor} for #{file}"}
     route = GeoRoute.new
-    unless processor = Formats::Factory.new.get(format)
-      Broutes.logger.warn {"unable to interpret format #{format}"}
-      return
-    end
-    Broutes.logger.debug {"found processor #{processor}"}
     processor.load(file, route)
     route
   end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Formats::GpxTrack do
   describe "#load" do
     before(:all) do
-      @file = open_file('single_lap_gpx_track.xml')
+      @file = open_file('single_lap_gpx_track.gpx')
       @target = Formats::GpxTrack.new
       @route = GeoRoute.new
 
@@ -37,7 +37,7 @@ describe Formats::GpxTrack do
 
     context "when file doesn't have elevation" do
       before(:all) do
-        @file = open_file('single_lap_gpx_track_no_elevation.xml')
+        @file = open_file('single_lap_gpx_track_no_elevation.gpx')
         @target = Formats::GpxTrack.new
         @route = GeoRoute.new
 

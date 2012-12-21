@@ -25,5 +25,10 @@ describe Formats::Factory do
         expect { factory.get(random_string) }.to raise_error(ArgumentError)
       end
     end
+    context "tcx filename" do
+      it "returns Tcx" do
+        factory.get("2012-12-30-12-23.tcx").should be_an_instance_of(Formats::Tcx)
+      end
+    end
   end
 end

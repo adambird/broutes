@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Broutes do
   describe ".from_file" do
     before(:all) do
-      @file = open_file('single_lap_gpx_track.xml')
-      @route = Broutes.from_file(@file, :gpx_track)
+      @file = open_file('single_lap_gpx_track.gpx')
+      @route = Broutes.from_file(@file, 'single_lap_gpx_track.gpx')
     end
 
     it "sets the start point lat" do
