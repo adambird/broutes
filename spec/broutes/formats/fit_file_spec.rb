@@ -28,5 +28,12 @@ describe Formats::FitFile do
     it "sets the total time" do
       @route.total_time.round.should eq(13675)
     end
+    it "sets the started_at" do
+      @route.started_at.to_i.should eq(Time.new(2012, 5, 12, 7, 29, 45).to_i)
+    end
+    it "sets the ended_at" do
+      @route.ended_at.to_i.should eq(Time.new(2012, 5, 12, 11, 17, 40).to_i)
+    end
+
   end
 end

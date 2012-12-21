@@ -1,7 +1,7 @@
 module Broutes
   class GeoRoute
 
-    attr_reader :start_point, :end_point
+    attr_reader :start_point, :end_point, :started_at, :ended_at
 
     def points
       get_points.to_enum
@@ -55,6 +55,14 @@ module Broutes
         @_total_ascent = self.total_ascent + (delta > 0 ? delta : 0)
         @_total_descent = self.total_descent - (delta < 0 ? delta : 0)
       end
+    end
+
+    def started_at
+      @start_point.time
+    end
+
+    def ended_at
+      @end_point.time
     end
 
     def total_ascent

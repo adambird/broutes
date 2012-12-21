@@ -28,7 +28,12 @@ describe Formats::Tcx do
     it "sets the total time" do
       @route.total_time.round.should eq(10631)
     end
-
+    it "sets the started_at" do
+      @route.started_at.to_i.should eq(Time.new(2012, 3, 15, 21, 20, 38).to_i)
+    end
+    it "sets the ended_at" do
+      @route.ended_at.to_i.should eq(Time.new(2012, 3, 16, 00, 17, 49).to_i)
+    end
   end
 
   describe "#load Garmin Training Centre" do

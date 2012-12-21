@@ -23,7 +23,7 @@ module Broutes::Formats
 
     def point_time(node)
       if time_node = node.at_css('time')
-        DateTime.parse(time_node.inner_text).to_time.to_i
+        DateTime.parse(time_node.inner_text).to_time
       end
     end
   end
