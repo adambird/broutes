@@ -13,7 +13,10 @@ module Broutes::Formats
             elevation: point_elevation(node), 
             time: point_time(node), 
             distance: point_distance(node), 
-            heart_rate: point_heart_rate(node)
+            heart_rate: point_heart_rate(node),
+            power: point_power(node),
+            speed: point_speed(node),
+            cadence: point_cadence(node)
             })
           i += 1
         end
@@ -48,6 +51,24 @@ module Broutes::Formats
     def point_heart_rate(node)
       if hr_node = node.at_css('HeartRateBpm')
         hr_node.inner_text.to_i
+      end
+    end
+
+    def point_cadence(node)
+      if cadence_node = node.at_css('Cadence')
+        cadence_node.inner_text.to_i
+      end
+    end
+
+    def point_power(node)
+      if power_node = node.at_xpath('.//tpx:Watts', 'tpx' => 'http://www.garmin.com/xmlschemas/ActivityExtension/v2')
+        power_node.inner_text.to_i
+      end
+    end
+
+    def point_speed(node)
+      if speed_node = node.at_xpath('.//tpx:Speed', 'tpx' => 'http://www.garmin.com/xmlschemas/ActivityExtension/v2')
+        speed_node.inner_text.to_f
       end
     end
   end

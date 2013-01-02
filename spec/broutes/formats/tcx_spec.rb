@@ -54,6 +54,15 @@ describe Formats::Tcx do
     it "extracts the heart rate" do
       @route.start_point.heart_rate.should eq(77)
     end
+    it "extracts the cadence" do
+      @route.start_point.cadence.should eq(85)
+    end
+    it "extracts the speed" do
+      @route.start_point.speed.should eq(11.3190002)
+    end
+    it "extracts the power" do
+      @route.start_point.power.should eq(297)
+    end
     it "sets the total distance" do
       @route.total_distance.should eq(43892)
     end

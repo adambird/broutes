@@ -17,7 +17,8 @@ module Broutes::Formats
               heart_rate: pr.heart_rate, 
               power: pr.power,
               speed: pr.speed,
-              cadence: pr.cadence
+              cadence: pr.cadence,
+              temperature: pr.temperature
               })
           i += 1
         rescue => e

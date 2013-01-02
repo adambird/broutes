@@ -22,6 +22,15 @@ describe Formats::FitFile do
     it "sets the power" do
       @route.start_point.power.should eq(96)
     end
+    it "extracts the cadence" do
+      @route.start_point.cadence.should eq(51)
+    end
+    it "extracts the speed" do
+      @route.start_point.speed.should eq(4.024)
+    end
+    it "extracts the speed" do
+      @route.start_point.temperature.should eq(11.0)
+    end
     it "sets the total distance" do
       @route.total_distance.should eq(92068)
     end

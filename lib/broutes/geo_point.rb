@@ -1,6 +1,6 @@
 module Broutes
   class GeoPoint
-    attr_accessor :lat, :lon, :elevation, :distance, :time, :heart_rate, :power, :speed, :cadence
+    attr_accessor :lat, :lon, :elevation, :distance, :time, :heart_rate, :power, :speed, :cadence, :temperature
 
     def initialize(args={})
       args.each_pair do |key, value| send("#{key}=", value) if respond_to?("#{key}=") end
@@ -19,7 +19,8 @@ module Broutes
       heart_rate == other.heart_rate &&
       power == other.power &&
       speed == other.speed &&
-      cadence == other.cadence
+      cadence == other.cadence &&
+      temperature == other.temperature
     end
 
     def to_hash
@@ -31,6 +32,7 @@ module Broutes
       h['power'] = power if power
       h['speed'] = speed if speed
       h['cadence'] = cadence if cadence
+      h['temperature'] = temperature if temperature
       h
     end
   end
