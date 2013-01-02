@@ -19,6 +19,9 @@ describe Formats::FitFile do
     it "sets the heart rate" do
       @route.start_point.heart_rate.should eq(88)
     end
+    it "sets the power" do
+      @route.start_point.power.should eq(96)
+    end
     it "sets the total distance" do
       @route.total_distance.should eq(92068)
     end

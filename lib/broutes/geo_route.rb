@@ -10,7 +10,7 @@ module Broutes
     class << self
       def from_hash(h)
         route = GeoRoute.new
-        h['points'].each { |p| route.add_point(p['lat'], p['lon'], p['elevation'], p['time'], p['distance'], p['heart_rate'], p['power']) }
+        h['points'].each { |p| route.add_point(p) }
         return route
       end
     end
@@ -27,19 +27,19 @@ module Broutes
       }
     end
 
-    def add_point(lat, lon, elevation=nil, time=nil, distance=nil, heart_rate=nil, power=nil)
-      point = GeoPoint.new(lat, lon, elevation, 0, time, heart_rate, power)
+    def add_point(lat, lon, values)
+      point = GeoPoint.new({lat: lat, lon: lon}.merge(values))
       if @start_point
-        if distance
-          @total_distance = distance
+        if point.distance
+          @total_distance = point.distance
         else
           @total_distance += Maths.haversine_distance(@end_point, point)
         end
 
-        @total_time = time - @start_point.time if time
+        @total_time = point.time - @start_point.time if point.time
       else
         @start_point = point
-        @total_distance = distance || 0
+        @total_distance = point.distance || 0
       end
 
       point.distance = @total_distance

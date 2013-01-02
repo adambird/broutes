@@ -7,10 +7,10 @@ describe GeoRoute do
       @lat = random_lat
       @lon = random_lon
       @elevation = 35.6000000
-      @new_point = GeoPoint.new(@lat, @lon, @elevation, 0)
+      @new_point = GeoPoint.new(lat: @lat, lon: @lon, elevation: @elevation, distance: 0)
     end
 
-    subject { @route.add_point(@lat, @lon, @elevation) }
+    subject { @route.add_point(@lat, @lon, elevation: @elevation) }
 
     context "when route is empty" do
 
@@ -29,8 +29,8 @@ describe GeoRoute do
     end
     context "when route already has a start point" do
       before(:each) do
-        @start_point = GeoPoint.new(random_lat, random_lon, random_elevation, 0)
-        @route.add_point(@start_point.lat, @start_point.lon, @start_point.elevation)
+        @start_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: random_elevation, distance: 0)
+        @route.add_point(@start_point.lat, @start_point.lon, elevation: @start_point.elevation)
       end
 
       it "should not change start_point" do
@@ -49,10 +49,10 @@ describe GeoRoute do
 
     context "when route already has at least two points" do
       before(:each) do
-        @start_point = GeoPoint.new(random_lat, random_lon, random_elevation)
-        @next_point = GeoPoint.new(random_lat, random_lon, random_elevation)
-        @route.add_point(@start_point.lat, @start_point.lon, @start_point.elevation)
-        @route.add_point(@next_point.lat, @next_point.lon, @next_point.elevation)
+        @start_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: random_elevation)
+        @next_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: random_elevation)
+        @route.add_point(@start_point.lat, @start_point.lon, elevation: @start_point.elevation)
+        @route.add_point(@next_point.lat, @next_point.lon, elevation: @next_point.elevation)
       end
       it "should set the total distance to haversine distance along all points" do
         subject
@@ -73,7 +73,7 @@ describe GeoRoute do
   describe "#process_elevation_delta" do
     before(:each) do
       @route = GeoRoute.new
-      @next_point = GeoPoint.new(random_lat, random_lon, random_elevation)
+      @next_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: random_elevation)
     end
 
     subject { @route.process_elevation_delta(@last_point, @next_point) }
@@ -90,7 +90,7 @@ describe GeoRoute do
     end
     context "when last_point is same elevation as next point" do
       before(:each) do
-        @last_point = GeoPoint.new(random_lat, random_lon, @next_point.elevation)
+        @last_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: @next_point.elevation)
       end
       it "has an total_ascent of zero" do
         subject
@@ -104,7 +104,7 @@ describe GeoRoute do
     context "when last_point is lower than the next point" do
       before(:each) do
         @delta = random_elevation
-        @last_point = GeoPoint.new(random_lat, random_lon, @next_point.elevation - @delta)
+        @last_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: @next_point.elevation - @delta)
       end
       it "the delta is added to the total_ascent" do
         subject
@@ -118,7 +118,7 @@ describe GeoRoute do
     context "when last_point is higher than the next point" do
       before(:each) do
         @delta = random_elevation
-        @last_point = GeoPoint.new(random_lat, random_lon, @next_point.elevation + @delta)
+        @last_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: @next_point.elevation + @delta)
       end
       it "has an total_ascent of zero" do
         subject

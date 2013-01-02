@@ -3,7 +3,7 @@ require 'spec_helper'
 describe GeoPoint do
   describe "#to_hash" do
     before(:each) do
-      @point = GeoPoint.new(random_lat, random_lon)
+      @point = GeoPoint.new(lat: random_lat, lon: random_lon)
     end
     
     subject { @point.to_hash }

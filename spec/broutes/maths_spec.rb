@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Maths do
   describe ".haversine_distance" do
     before(:each) do
-      @p1 = GeoPoint.new(39.06546, -104.88544)
-      @p2 = GeoPoint.new(39.06546, -104.80)
+      @p1 = GeoPoint.new(lat: 39.06546, lon: -104.88544)
+      @p2 = GeoPoint.new(lat: 39.06546, lon: -104.80)
     end
 
     subject { Maths.haversine_distance( @p1, @p2 ) }

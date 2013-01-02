@@ -9,7 +9,9 @@ module Broutes::Formats
 
       i = 0
       doc.css('trkpt').each do |node|
-        p = route.add_point(node['lat'].to_f, node['lon'].to_f, point_elevation(node), point_time(node))
+        p = route.add_point(node['lat'].to_f, node['lon'].to_f, { 
+          elevation: point_elevation(node), time: point_time(node)
+          })
         i += 1
       end
       Broutes.logger.info {"Loaded #{i} data points"}
