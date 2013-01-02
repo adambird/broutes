@@ -9,7 +9,7 @@ module Broutes::Formats
       i = 0
       doc.css('Trackpoint').each do |node|
         if location = point_location(node)
-          p = route.add_point(location[0], location[1], point_elevation(node), point_time(node), point_distance(node))
+          p = route.add_point(location[0], location[1], point_elevation(node), point_time(node), point_distance(node), point_heart_rate(node))
           i += 1
         end
       end
@@ -37,6 +37,12 @@ module Broutes::Formats
     def point_time(node)
       if time_node = node.at_css('Time')
         DateTime.parse(time_node.inner_text).to_time
+      end
+    end
+
+    def point_heart_rate(node)
+      if hr_node = node.at_css('HeartRateBpm')
+        hr_node.inner_text.to_i
       end
     end
   end

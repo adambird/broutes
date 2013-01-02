@@ -10,7 +10,7 @@ module Broutes::Formats
       fit_file.records.select {|r| r.content && r.content.record_type == :record }.each do |r|
         begin
           pr = r.content
-          route.add_point(convert_position(pr.position_lat), convert_position(pr.position_long), pr.altitude, record_time(r), pr.distance)
+          route.add_point(convert_position(pr.position_lat), convert_position(pr.position_long), pr.altitude, record_time(r), pr.distance, pr.heart_rate)
           i += 1
         rescue => e
           Broutes.logger.debug {"#{e.message} for #{r}"}

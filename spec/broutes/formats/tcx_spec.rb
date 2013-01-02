@@ -51,6 +51,9 @@ describe Formats::Tcx do
     it "sets the start point lon" do
       @route.start_point.lon.should eq(-1.2236503)
     end
+    it "extracts the heart rate" do
+      @route.start_point.heart_rate.should eq(77)
+    end
     it "sets the total distance" do
       @route.total_distance.should eq(43892)
     end
