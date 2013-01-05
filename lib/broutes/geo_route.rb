@@ -10,7 +10,7 @@ module Broutes
     class << self
       def from_hash(h)
         route = GeoRoute.new
-        h['points'].each { |p| route.add_point(p) }
+        h['points'].each { |p| route.add_point(p['lat'], p['lon'], p) }
         return route
       end
     end
