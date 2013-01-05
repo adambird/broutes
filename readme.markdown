@@ -6,9 +6,9 @@ Used in the [Bunch Rides](http://www.bunch.cc) web app.
 
 ## Supported Formats
 
-+ .gpx [GPX Track](http://en.wikipedia.org/wiki/GPS_eXchange_Format)
-+ .tcx [Garmin TCX](http://developer.garmin.com/schemas/tcx/v2/)
-+ .fit [ANT+ FIT](http://www.thisisant.com/developer/)
++ [GPX Track](http://en.wikipedia.org/wiki/GPS_eXchange_Format)
++ [Garmin TCX](http://developer.garmin.com/schemas/tcx/v2/)
++ [ANT+ FIT](http://www.thisisant.com/developer/)
 
 ## Usage
 
@@ -26,7 +26,7 @@ The format string can either be a symbol, mimetype or filename from which the ex
 <table>
   <tr><th>Format</th><th>Symbol</th><th>Mime Type</th><th>File Extension</th></tr>
   <tr><td>GPX Track</td><td>:gpx_track</td><td>application/gpx+xml</td><td>.gpx</td></tr>
-  <tr><td>Garmin TCX</td><td>:tcx</td><td>application/vnd.garmin.tcx+xml'</td><td>.tcx</td></tr>
+  <tr><td>Garmin TCX</td><td>:tcx</td><td>application/vnd.garmin.tcx+xml</td><td>.tcx</td></tr>
   <tr><td>ANT+ FIT</td><td>:fit</td><td>application/vnd.ant.fit</td><td>.fit</td></tr>
 </table>
 
