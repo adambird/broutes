@@ -2,6 +2,8 @@ module Broutes
   module Maths
     class << self
       def haversine_distance(p1, p2)
+        return unless p1.has_location? && p2.has_location?
+        
         dlat = p2.lat - p1.lat
         dlon = p2.lon - p1.lon
     

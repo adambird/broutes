@@ -10,15 +10,15 @@ module Broutes::Formats
       fit_file.records.select {|r| r.content && r.content.record_type == :record }.each do |r|
         begin
           pr = r.content
-          next unless pr.respond_to?(:position_lat)
-
           data = { time: record_time(r) }
+          data[:lat] = convert_position(pr.position_lat) if pr.respond_to?(:position_lat)
+          data[:lon] = convert_position(pr.position_long) if pr.respond_to?(:position_long)
           data[:elevation] = pr.altitude if pr.respond_to?(:altitude)
           [:distance, :heart_rate, :power, :speed, :cadence, :temperature].each do |m| 
             data[m] = pr.send(m) if pr.respond_to?(m) 
           end
 
-          route.add_point(convert_position(pr.position_lat), convert_position(pr.position_long), data)
+          route.add_point(data)
           i += 1
         rescue => e
           Broutes.logger.debug {"#{e.message} for #{r}"}

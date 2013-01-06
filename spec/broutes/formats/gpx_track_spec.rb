@@ -34,31 +34,30 @@ describe Formats::GpxTrack do
     it "sets the ended_at" do
       @route.ended_at.to_i.should eq(Time.new(2011, 5, 19, 18, 17, 52).to_i)
     end
+  end
+  describe "when file doesn't have elevation" do
+    before(:all) do
+      @file = open_file('single_lap_gpx_track_no_elevation.gpx')
+      @target = Formats::GpxTrack.new
+      @route = GeoRoute.new
 
-    context "when file doesn't have elevation" do
-      before(:all) do
-        @file = open_file('single_lap_gpx_track_no_elevation.gpx')
-        @target = Formats::GpxTrack.new
-        @route = GeoRoute.new
+      @target.load(@file, @route)
+    end
 
-        @target.load(@file, @route)
-      end
-
-      it "sets the start point lat" do
-        @route.start_point.lat.should eq(52.926467718938)
-      end
-      it "sets the start point lon" do
-        @route.start_point.lon.should eq(-1.216092432889)
-      end
-      it "sets the total distance" do
-        @route.total_distance.should eq(123955)
-      end
-      it "sets the total ascent" do
-        @route.total_ascent.should eq(0)
-      end
-      it "sets the total descent" do
-        @route.total_descent.should eq(0)
-      end
+    it "sets the start point lat" do
+      @route.start_point.lat.should eq(52.926467718938)
+    end
+    it "sets the start point lon" do
+      @route.start_point.lon.should eq(-1.216092432889)
+    end
+    it "sets the total distance" do
+      @route.total_distance.should eq(123955)
+    end
+    it "sets the total ascent" do
+      @route.total_ascent.should eq(0)
+    end
+    it "sets the total descent" do
+      @route.total_descent.should eq(0)
     end
   end
 end

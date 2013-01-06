@@ -10,7 +10,7 @@ describe GeoRoute do
       @new_point = GeoPoint.new(lat: @lat, lon: @lon, elevation: @elevation, distance: 0)
     end
 
-    subject { @route.add_point(@lat, @lon, elevation: @elevation) }
+    subject { @route.add_point(lat: @lat, lon: @lon, elevation: @elevation) }
 
     context "when route is empty" do
 
@@ -30,7 +30,7 @@ describe GeoRoute do
     context "when route already has a start point" do
       before(:each) do
         @start_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: random_elevation, distance: 0)
-        @route.add_point(@start_point.lat, @start_point.lon, elevation: @start_point.elevation)
+        @route.add_point(lat: @start_point.lat, lon: @start_point.lon, elevation: @start_point.elevation)
       end
 
       it "should not change start_point" do
@@ -51,8 +51,8 @@ describe GeoRoute do
       before(:each) do
         @start_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: random_elevation)
         @next_point = GeoPoint.new(lat: random_lat, lon: random_lon, elevation: random_elevation)
-        @route.add_point(@start_point.lat, @start_point.lon, elevation: @start_point.elevation)
-        @route.add_point(@next_point.lat, @next_point.lon, elevation: @next_point.elevation)
+        @route.add_point(lat: @start_point.lat, lon: @start_point.lon, elevation: @start_point.elevation)
+        @route.add_point(lat: @next_point.lat, lon: @next_point.lon, elevation: @next_point.elevation)
       end
       it "should set the total distance to haversine distance along all points" do
         subject

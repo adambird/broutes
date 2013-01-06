@@ -76,4 +76,33 @@ describe Formats::Tcx do
       @route.total_time.round.should eq(6926)
     end
   end
+
+  describe "file without GPS coordinates" do
+    before(:all) do
+      @file = open_file('no_gps_coordinates.tcx')
+      @target = Formats::Tcx.new
+      @route = GeoRoute.new
+
+      @target.load(@file, @route)
+    end
+
+    it "sets the total time" do
+      @route.total_time.should eq(653)
+    end
+    it "sets the start point lat" do
+      @route.start_point.lat.should be_nil
+    end
+    it "sets the start point lon" do
+      @route.start_point.lon.should be_nil
+    end
+    it "sets the total distance" do
+      @route.total_distance.should eq(0)
+    end
+    it "sets the total ascent" do
+      @route.total_ascent.should eq(2.403564500000016)
+    end
+    it "sets the total descent" do
+      @route.total_descent.should eq(2.8841553000000033)
+    end
+  end
 end

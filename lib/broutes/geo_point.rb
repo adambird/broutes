@@ -10,6 +10,10 @@ module Broutes
       GeoPoint.new(h)
     end
 
+    def has_location?
+      lat && lon
+    end
+
     def ==(other)
       lat == other.lat &&
       lon == other.lon &&
@@ -24,7 +28,9 @@ module Broutes
     end
 
     def to_hash
-      h = {'lat' => lat, 'lon' => lon}
+      h = {}
+      h['lat'] = lat if lat
+      h['lon'] = lon if lon
       h['elevation'] = elevation if elevation
       h['distance'] = distance if distance
       h['time'] = time if time

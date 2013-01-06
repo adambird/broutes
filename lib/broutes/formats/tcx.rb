@@ -8,18 +8,22 @@ module Broutes::Formats
 
       i = 0
       doc.css('Trackpoint').each do |node|
+        data = {
+          elevation: point_elevation(node), 
+          time: point_time(node), 
+          distance: point_distance(node), 
+          heart_rate: point_heart_rate(node),
+          power: point_power(node),
+          speed: point_speed(node),
+          cadence: point_cadence(node)
+          }
         if location = point_location(node)
-          p = route.add_point(location[0], location[1], {
-            elevation: point_elevation(node), 
-            time: point_time(node), 
-            distance: point_distance(node), 
-            heart_rate: point_heart_rate(node),
-            power: point_power(node),
-            speed: point_speed(node),
-            cadence: point_cadence(node)
-            })
-          i += 1
+          data[:lat] = location[0]
+          data[:lon] = location[1]
         end
+        
+        p = route.add_point(data)
+        i += 1
       end
       Broutes.logger.info {"Loaded #{i} data points"}
     end
