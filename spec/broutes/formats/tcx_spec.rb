@@ -105,4 +105,30 @@ describe Formats::Tcx do
       @route.total_descent.should eq(2.8841553000000033)
     end
   end
+
+  describe "file without points only summary" do
+    before(:all) do
+      @file = open_file('summary_no_points.tcx')
+      @target = Formats::Tcx.new
+      @route = GeoRoute.new
+
+      @target.load(@file, @route)
+    end
+
+    it "sets the total time" do
+      @route.total_time.should eq(2490)
+    end
+    it "start_point should be nil" do
+      @route.start_point.should be_nil
+    end
+    it "sets the total distance" do
+      @route.total_distance.should eq(21146)
+    end
+    it "sets the total ascent" do
+      @route.total_ascent.should eq(0)
+    end
+    it "sets the total descent" do
+      @route.total_descent.should eq(0)
+    end
+  end
 end

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<TrainingCenterDatabase xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd">
+
+  <Activities>
+    <Activity Sport="Biking">
+      <Id>2012-09-05T18:55:11Z</Id>
+      <Lap StartTime="2012-09-05T18:55:11Z">
+        <TotalTimeSeconds>2490.6200000</TotalTimeSeconds>
+        <DistanceMeters>21146.5722656</DistanceMeters>
+        <MaximumSpeed>13.8850002</MaximumSpeed>
+        <Calories>839</Calories>
+        <AverageHeartRateBpm xsi:type="HeartRateInBeatsPerMinute_t">
+          <Value>148</Value>
+        </AverageHeartRateBpm>
+        <MaximumHeartRateBpm xsi:type="HeartRateInBeatsPerMinute_t">
+          <Value>174</Value>
+        </MaximumHeartRateBpm>
+        <Intensity>Active</Intensity>
+        <TriggerMethod>Manual</TriggerMethod>
+      </Lap>
+      <Creator xsi:type="Device_t">
+        <Name>Adrian's 305</Name>
+        <UnitId>3304170408</UnitId>
+        <ProductID>450</ProductID>
+        <Version>
+          <VersionMajor>3</VersionMajor>
+          <VersionMinor>20</VersionMinor>
+          <BuildMajor>0</BuildMajor>
+          <BuildMinor>0</BuildMinor>
+        </Version>
+      </Creator>
+    </Activity>
+  </Activities>
+
+  <Author xsi:type="Application_t">
+    <Name>Garmin Communicator Plugin</Name>
+    <Build>
+      <Version>
+        <VersionMajor>4</VersionMajor>
+        <VersionMinor>0</VersionMinor>
+        <BuildMajor>4</BuildMajor>
+        <BuildMinor>0</BuildMinor>
+      </Version>
+      <Type>Release</Type>
+      <Time>Nov 2 2012, 10:47:40</Time>
+      <Builder>sqa</Builder>
+    </Build>
+    <LangID>en</LangID>
+    <PartNumber>006-A0162-00</PartNumber>
+  </Author>
+
+</TrainingCenterDatabase>

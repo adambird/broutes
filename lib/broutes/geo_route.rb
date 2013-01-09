@@ -1,7 +1,9 @@
 module Broutes
   class GeoRoute
 
-    attr_reader :start_point, :end_point, :started_at, :ended_at
+    attr_reader :start_point, :end_point, :started_at, :ended_at, :total_time
+    attr_writer :total_distance
+    attr_accessor :total_time
 
     def points
       get_points.to_enum
@@ -73,13 +75,6 @@ module Broutes
 
     def total_descent
       @_total_descent ||= 0
-    end
-
-    # Public : Total time in seconds
-    #
-    # Returns Fixnum time in seconds
-    def total_time
-      @total_time
     end
 
     # Public : Total distance measured between points in whole metres

@@ -26,6 +26,19 @@ module Broutes::Formats
         i += 1
       end
       Broutes.logger.info {"Loaded #{i} data points"}
+
+      # Load in summary values if time and distance nil, ie no points
+      unless route.total_time
+        route.total_time = doc.css('Activities > Activity > Lap > TotalTimeSeconds').reduce(0) { |sum, node| 
+          sum + node.inner_text.to_i
+        }
+      end
+
+      unless route.total_distance
+        route.total_distance = doc.css('Activities > Activity > Lap > DistanceMeters').reduce(0) { |sum, node| 
+          sum + node.inner_text.to_i
+        }
+      end
     end
 
     def point_location(node)
