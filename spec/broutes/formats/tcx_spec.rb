@@ -145,5 +145,8 @@ describe Formats::Tcx do
     it "sets the started_at" do
       @route.started_at.to_i.should eq(DateTime.parse("2012-09-05T18:55:11Z").to_time.to_i)
     end
+    it "include the started at in the hash" do
+      @route.to_hash['started_at'].should_not be_nil
+    end
   end
 end

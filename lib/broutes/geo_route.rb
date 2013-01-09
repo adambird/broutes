@@ -9,12 +9,21 @@ module Broutes
       get_points.to_enum
     end
 
-    class << self
-      def from_hash(h)
-        route = GeoRoute.new
-        h['points'].each { |p| route.add_point(p) }
-        return route
+    def initialize(args={})
+      args.each_pair do |key, value| 
+        next unless respond_to?("#{key}=")
+
+        if key.to_sym == :points
+          h['points'].each { |p| route.add_point(p) }
+        else
+          send("#{key}=", value)  
+        end
+
       end
+    end
+
+    def self.from_hash(h)
+      route = GeoRoute.new h
     end
 
     def to_hash

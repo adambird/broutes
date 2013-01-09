@@ -13,6 +13,10 @@ def random_lon
   rand
 end
 
+def random_integer
+  rand(100000).to_i
+end
+
 def random_elevation
   round_to(rand + rand(999), 3)
 end

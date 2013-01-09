@@ -56,7 +56,7 @@ describe GeoRoute do
       end
       it "should set the total distance to haversine distance along all points" do
         subject
-        @route.total_distance.should eq(
+        @route.total_distance.should be_within(1).of(
           Maths.haversine_distance(@start_point, @next_point).round +
           Maths.haversine_distance(@next_point, @new_point).round
           )
@@ -166,4 +166,27 @@ describe GeoRoute do
     end
   end
 
+  describe ".from_hash" do
+    let(:started_at) { Time.now }
+    let(:total_time) { random_integer }
+    let(:total_distance) { random_integer }
+
+    let(:hash) {{
+      'started_at' => started_at,
+      'total_time' => total_time,
+      'total_distance' => total_distance
+    }}
+
+    subject { GeoRoute.from_hash hash }
+
+    it "set the started_at" do
+      subject.started_at.to_i.should eq(started_at.to_i)
+    end
+    it "set the total_time" do
+      subject.total_time.should eq(total_time)
+    end
+    it "set the total_distance" do
+      subject.total_distance.should eq(total_distance)
+    end
+  end
 end
