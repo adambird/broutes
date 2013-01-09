@@ -34,6 +34,9 @@ describe Formats::Tcx do
     it "sets the ended_at" do
       @route.ended_at.to_i.should eq(Time.new(2012, 3, 16, 00, 17, 49).to_i)
     end
+    it "can create hash" do
+      @route.to_hash
+    end
   end
 
   describe "#load Garmin Training Centre" do
@@ -75,6 +78,9 @@ describe Formats::Tcx do
     it "sets the total time" do
       @route.total_time.round.should eq(6926)
     end
+    it "can create hash" do
+      @route.to_hash
+    end
   end
 
   describe "file without GPS coordinates" do
@@ -104,6 +110,9 @@ describe Formats::Tcx do
     it "sets the total descent" do
       @route.total_descent.should eq(2.8841553000000033)
     end
+    it "can create hash" do
+      @route.to_hash
+    end
   end
 
   describe "file without points only summary" do
@@ -129,6 +138,9 @@ describe Formats::Tcx do
     end
     it "sets the total descent" do
       @route.total_descent.should eq(0)
+    end
+    it "can create hash" do
+      @route.to_hash
     end
   end
 end

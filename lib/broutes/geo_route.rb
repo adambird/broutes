@@ -18,15 +18,16 @@ module Broutes
     end
 
     def to_hash
-      {
-        'start_point' => start_point.to_hash,
-        'end_point' => end_point.to_hash,
+      h = {
         'total_distance' => total_distance,
         'total_time' => total_time,
         'total_ascent' => total_ascent,
         'total_descent' => total_ascent,
         'points' => points.collect { |p| p.to_hash }
       }
+      h['start_point'] = start_point.to_hash if start_point
+      h['end_point'] = end_point.to_hash if end_point
+      h
     end
 
     def add_point(args)
