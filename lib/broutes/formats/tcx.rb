@@ -39,6 +39,10 @@ module Broutes::Formats
           sum + node.inner_text.to_i
         }
       end
+
+      unless route.started_at
+        route.started_at = DateTime.parse(doc.css('Activities > Activity > Lap').first['StartTime']).to_time
+      end
     end
 
     def point_location(node)
