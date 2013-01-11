@@ -168,13 +168,14 @@ describe GeoRoute do
 
   describe ".from_hash" do
     let(:started_at) { Time.now }
-    let(:total_time) { random_integer }
-    let(:total_distance) { random_integer }
-
+    let(:points) {[ 
+      GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at),
+      GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at + 1),
+      GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at + 2)
+      ]}
     let(:hash) {{
       'started_at' => started_at,
-      'total_time' => total_time,
-      'total_distance' => total_distance
+      'points' => points.collect { |p| p.to_hash }
     }}
 
     subject { GeoRoute.from_hash hash }
@@ -182,11 +183,8 @@ describe GeoRoute do
     it "set the started_at" do
       subject.started_at.to_i.should eq(started_at.to_i)
     end
-    it "set the total_time" do
-      subject.total_time.should eq(total_time)
-    end
-    it "set the total_distance" do
-      subject.total_distance.should eq(total_distance)
+    it "has the requisite number of points" do
+      subject.points.count.should eq(points.count)
     end
   end
 end
