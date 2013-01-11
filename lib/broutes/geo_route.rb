@@ -11,14 +11,11 @@ module Broutes
 
     def initialize(args={})
       args.each_pair do |key, value| 
-        next unless respond_to?("#{key}=")
-
         if key.to_sym == :points
           h['points'].each { |p| route.add_point(p) }
         else
-          send("#{key}=", value)  
+          send("#{key}=", value) if respond_to?("#{key}=")
         end
-
       end
     end
 
