@@ -1,6 +1,7 @@
 module Broutes
   class GeoPoint
-    attr_accessor :lat, :lon, :elevation, :distance, :time, :heart_rate, :power, :speed, :cadence, :temperature
+    attr_accessor :lat, :lon, :elevation, :distance, :heart_rate, :power, :speed, :cadence, :temperature
+    attr_reader :time
 
     def initialize(args={})
       args.each_pair do |key, value| send("#{key}=", value) if respond_to?("#{key}=") end
@@ -12,6 +13,14 @@ module Broutes
 
     def has_location?
       lat && lon
+    end
+
+    def time=(value)
+      if value.is_a?(String)
+        @time = DateTime.parse(value).to_time
+      else
+        @time = value
+      end
     end
 
     def ==(other)

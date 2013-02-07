@@ -40,4 +40,29 @@ describe GeoPoint do
       end
     end
   end
+
+  describe "#time=" do
+    let(:point) { GeoPoint.new }
+
+    subject { point.time = @value }
+
+    context "when parseable string" do
+      before(:each) do
+        @value = "2013-01-12T08:33:11Z"
+      end
+      it "should eq the time" do
+        subject
+        point.time.to_i.should eq(Time.utc(2013, 1, 12, 8, 33, 11).to_i)
+      end
+    end
+    context "when is a time" do
+      before(:each) do
+        @value = Time.new(2013, 4, 12, 12, 34, 45)
+      end
+      it "should eq the time" do
+        subject
+        point.time.to_i.should eq(@value.to_i)
+      end
+    end
+  end
 end
