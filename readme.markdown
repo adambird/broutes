@@ -4,6 +4,8 @@ Ruby gem for parsing and extracting common data structures from geo route file f
 
 Used in the [Bunch Rides](http://www.bunch.cc) web app.
 
+[![endorse](https://api.coderwall.com/adambird/endorsecount.png)](https://coderwall.com/adambird)
+
 ## Supported Formats
 
 + [GPX Track](http://en.wikipedia.org/wiki/GPS_eXchange_Format)
