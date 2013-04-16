@@ -1,3 +1,5 @@
+require 'time'
+
 module Broutes
   class GeoPoint
     attr_accessor :lat, :lon, :elevation, :distance, :heart_rate, :power, :speed, :cadence, :temperature

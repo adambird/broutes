@@ -1,8 +1,8 @@
+source "http://rubygems.org"
+
 gem 'rake'
-gem 'nokogiri'
-gem 'fit', :git => 'git@github.com:adambird/fit.git'
-# gem 'fit', :path => '../fit'
-# gem 'bindata'
+
+gemspec
 
 group :test, :development do
   gem 'rspec'
