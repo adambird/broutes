@@ -12,10 +12,12 @@ Used in the [Bunch Rides](http://www.bunch.cc) web app.
 
 ## Usage
 
-Early stage of development so need to reference this repository for the gem 
+Add this to your Gemfile
 
-	gem 'broutes', :git => 'git@github.com:adambird/broutes.git'
-	
+```ruby
+  gem 'broutes'
+```
+
 Then open a file and pass it in to the from_file method along with the format.
 
 	file = File.open('path to route file')
