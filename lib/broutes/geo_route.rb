@@ -100,6 +100,30 @@ module Broutes
       (total_distance > 0) ? (total_ascent * 1000 / total_distance) : 0
     end
 
+    # Public: Get average heart_rate for whole GeoRoute.
+    #
+    # Examples
+    #   @route.average_heart_rate
+    #   # => 12
+    #
+    # Returns Integer average, or 0 if no heart_rate on points.
+    def average_heart_rate
+      points = @_points
+      points.map { |p| p.heart_rate || 0 }.inject { |sum, hr| sum + hr } / points.count
+    end
+
+    # Public: Get average power for whole GeoRoute.
+    #
+    # Examples
+    #   @route.average_power
+    #   # => 250
+    #
+    # Returns Float average, or 0 if no power on points.
+    def average_power
+      points = @_points
+      points.map { |p| p.power || 0 }.inject { |sum, p| sum + p } / points.count
+    end
+
     private
 
     def get_points
