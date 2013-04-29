@@ -166,6 +166,55 @@ describe GeoRoute do
     end
   end
 
+  describe "#average_heart_rate" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have heart rates' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, heart_rate: 15)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, heart_rate: 10)
+      end
+      it 'should return average heart rate' do
+        puts @route.points
+        @route.average_heart_rate.should eq(12)
+      end
+    end
+    context 'when the route points have no heart rate' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.average_heart_rate.should eq(0)
+      end
+    end
+  end
+
+  describe "#average_power" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have heart rates' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, power: 250)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, power: 233)
+      end
+      it 'should return average power' do
+        @route.average_power.should eq(241)
+      end
+    end
+    context 'when the route points have no heart rate' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.average_power.should eq(0)
+      end
+    end
+  end
+
   describe ".from_hash" do
     let(:started_at) { Time.now }
     let(:points) {[ 
