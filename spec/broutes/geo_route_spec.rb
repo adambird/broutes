@@ -177,7 +177,6 @@ describe GeoRoute do
         @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, heart_rate: 10)
       end
       it 'should return average heart rate' do
-        puts @route.points
         @route.average_heart_rate.should eq(12)
       end
     end
@@ -187,6 +186,102 @@ describe GeoRoute do
       end
       it 'should return 0' do
         @route.average_heart_rate.should eq(0)
+      end
+    end
+  end
+
+  describe "#maximum_heart_rate" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have heart rates' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, heart_rate: 15)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, heart_rate: 10)
+      end
+      it 'should return maximum heart rate' do
+        @route.maximum_heart_rate.should eq(15)
+      end
+    end
+    context 'when the route points have no heart rate' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.maximum_heart_rate.should eq(0)
+      end
+    end
+  end
+
+  describe "#minimum_heart_rate" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have heart rates' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, heart_rate: 15)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, heart_rate: 10)
+      end
+      it 'should return minimum heart rate' do
+        @route.minimum_heart_rate.should eq(10)
+      end
+    end
+    context 'when the route points have no heart rate' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.minimum_heart_rate.should eq(0)
+      end
+    end
+  end
+
+  describe "#maximum_elevation" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have elevations' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 217, heart_rate: random_heart_rate)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 212, heart_rate: random_heart_rate)
+      end
+      it 'should return maximum elevation' do
+        @route.maximum_elevation.should eq(217)
+      end
+    end
+    context 'when the route points have no heart rate' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, heart_rate: random_heart_rate)
+      end
+      it 'should return 0' do
+        @route.maximum_elevation.should eq(0)
+      end
+    end
+  end
+
+  describe "#minimum_elevation" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have elevations' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 217, heart_rate: random_heart_rate)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 212, heart_rate: random_heart_rate)
+      end
+      it 'should return minimum elevation' do
+        @route.minimum_elevation.should eq(212)
+      end
+    end
+    context 'when the route points have no heart rate' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, heart_rate: random_heart_rate)
+      end
+      it 'should return 0' do
+        @route.maximum_elevation.should eq(0)
       end
     end
   end
@@ -217,7 +312,7 @@ describe GeoRoute do
 
   describe ".from_hash" do
     let(:started_at) { Time.now }
-    let(:points) {[ 
+    let(:points) {[
       GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at),
       GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at + 1),
       GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at + 2)
