@@ -10,7 +10,7 @@ module Broutes
     end
 
     def initialize(args={})
-      args.each_pair do |key, value| 
+      args.each_pair do |key, value|
         if key.to_sym == :points
           value.each { |p| add_point(p) }
         else
@@ -122,6 +122,54 @@ module Broutes
     def average_power
       points = @_points
       points.map { |p| p.power || 0 }.inject { |sum, p| sum + p } / points.count
+    end
+
+    # Public: Get maximum heart rate for whole GeoRoute.
+    #
+    # Examples
+    #   @route.maximum_heart_rate
+    #   # => 180
+    #
+    # Returns Integer maximum, or 0 if no heart rate on points.
+    def maximum_heart_rate
+      points = @_points
+      points.map { |p| p.heart_rate }.compact.max || 0
+    end
+
+    # Public: Get minimum heart rate for whole GeoRoute.
+    #
+    # Examples
+    #   @route.minimum_heart_rate
+    #   # => 100
+    #
+    # Returns Integer minimum, or 0 if no heart rate on points.
+    def minimum_heart_rate
+      points = @_points
+      points.map { |p| p.heart_rate }.compact.min || 0
+    end
+
+    # Public: Get maximum elevation for whole GeoRoute.
+    #
+    # Examples
+    #   @route.maximum_elevation
+    #   # => 1000
+    #
+    # Returns Integer maximum, or 0 if no elevation on points.
+    def maximum_elevation
+      points = @_points
+      points.map { |p| p.elevation }.compact.max || 0
+    end
+
+    # Public: Get minimum elevation for whole GeoRoute.
+    #
+    # Examples
+    #   @route.minimum_elevation
+    #   # => 10
+    #
+    # Returns Integer minimum, or 0 if no elevation on points.
+    def minimum_elevation
+      points = @_points
+      points.map { |p| p.elevation }.compact.min || 0
     end
 
     private

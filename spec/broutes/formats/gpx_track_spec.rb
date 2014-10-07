@@ -29,10 +29,10 @@ describe Formats::GpxTrack do
       @route.total_time.round.should eq(1231)
     end
     it "sets the started_at" do
-      @route.started_at.to_i.should eq(Time.new(2011, 5, 19, 17, 57, 21).to_i)
+      @route.started_at.to_i.should eq(Time.new(2011, 5, 19, 16, 57, 21, "+00:00").to_i)
     end
     it "sets the ended_at" do
-      @route.ended_at.to_i.should eq(Time.new(2011, 5, 19, 18, 17, 52).to_i)
+      @route.ended_at.to_i.should eq(Time.new(2011, 5, 19, 17, 17, 52, "+00:00").to_i)
     end
   end
   describe "when file doesn't have elevation" do
