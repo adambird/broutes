@@ -29,10 +29,10 @@ describe Formats::Tcx do
       @route.total_time.round.should eq(10631)
     end
     it "sets the started_at" do
-      @route.started_at.to_i.should eq(Time.new(2012, 3, 15, 21, 20, 38).to_i)
+      @route.started_at.to_i.should eq(Time.new(2012, 3, 15, 21, 20, 38, "+00:00").to_i)
     end
     it "sets the ended_at" do
-      @route.ended_at.to_i.should eq(Time.new(2012, 3, 16, 00, 17, 49).to_i)
+      @route.ended_at.to_i.should eq(Time.new(2012, 3, 16, 00, 17, 49, "+00:00").to_i)
     end
     it "can create hash" do
       @route.to_hash
@@ -77,6 +77,27 @@ describe Formats::Tcx do
     end
     it "sets the total time" do
       @route.total_time.round.should eq(6926)
+    end
+    it "sets the hilliness" do
+      @route.hilliness.should eq(9.482364000273426)
+    end
+    it "sets the average heart rate" do
+      @route.average_heart_rate.should eq(139)
+    end
+    it "sets the average power" do
+      @route.average_power.should eq(174)
+    end
+    it "sets the maximum heart rate" do
+      @route.maximum_heart_rate.should eq(189)
+    end
+    it "sets the minimum heart rate" do
+      @route.minimum_heart_rate.should eq(59)
+    end
+    it "sets the maximum elevation" do
+      @route.maximum_elevation.should eq(85.0)
+    end
+    it "sets the minimum elevation" do
+      @route.minimum_elevation.should eq(0)
     end
     it "can create hash" do
       @route.to_hash

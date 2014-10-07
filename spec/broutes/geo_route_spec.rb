@@ -245,16 +245,16 @@ describe GeoRoute do
 
     context 'when the route points have elevations' do
       before(:each) do
-        @route.add_point(lat: random_lat, lon: random_lon, elevation: 217, heart_rate: random_heart_rate)
-        @route.add_point(lat: random_lat, lon: random_lon, elevation: 212, heart_rate: random_heart_rate)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 217)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 212)
       end
       it 'should return maximum elevation' do
         @route.maximum_elevation.should eq(217)
       end
     end
-    context 'when the route points have no heart rate' do
+    context 'when the route points have no elevations' do
       before(:each) do
-        @route.add_point(lat: random_lat, lon: random_lon, heart_rate: random_heart_rate)
+        @route.add_point(lat: random_lat, lon: random_lon)
       end
       it 'should return 0' do
         @route.maximum_elevation.should eq(0)
@@ -269,16 +269,16 @@ describe GeoRoute do
 
     context 'when the route points have elevations' do
       before(:each) do
-        @route.add_point(lat: random_lat, lon: random_lon, elevation: 217, heart_rate: random_heart_rate)
-        @route.add_point(lat: random_lat, lon: random_lon, elevation: 212, heart_rate: random_heart_rate)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 217)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: 212)
       end
       it 'should return minimum elevation' do
         @route.minimum_elevation.should eq(212)
       end
     end
-    context 'when the route points have no heart rate' do
+    context 'when the route points have no elevations' do
       before(:each) do
-        @route.add_point(lat: random_lat, lon: random_lon, heart_rate: random_heart_rate)
+        @route.add_point(lat: random_lat, lon: random_lon)
       end
       it 'should return 0' do
         @route.maximum_elevation.should eq(0)
@@ -291,7 +291,7 @@ describe GeoRoute do
       @route = GeoRoute.new
     end
 
-    context 'when the route points have heart rates' do
+    context 'when the route points have power' do
       before(:each) do
         @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, power: 250)
         @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, power: 233)
@@ -300,7 +300,7 @@ describe GeoRoute do
         @route.average_power.should eq(241)
       end
     end
-    context 'when the route points have no heart rate' do
+    context 'when the route points have no power' do
       before(:each) do
         @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
       end
