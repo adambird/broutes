@@ -124,6 +124,18 @@ module Broutes
       points.map { |p| p.power || 0 }.inject { |sum, p| sum + p } / points.count
     end
 
+    # Public: Get average speed for whole GeoRoute.
+    #
+    # Examples
+    #   @route.average_speed
+    #   # => 2.50
+    #
+    # Returns Float average, or 0 if no speed on points.
+    def average_speed
+      points = @_points
+      points.map { |p| p.speed || 0 }.inject { |sum, p| sum + p } / points.count
+    end
+
     # Public: Get maximum heart rate for whole GeoRoute.
     #
     # Examples

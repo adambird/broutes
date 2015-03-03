@@ -310,6 +310,30 @@ describe GeoRoute do
     end
   end
 
+  describe "#average_speed" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have speed' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 4.00)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 2.00)
+      end
+      it 'should return average speed' do
+        @route.average_speed.should eq(3.00)
+      end
+    end
+    context 'when the route points have no power' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.average_speed.should eq(0)
+      end
+    end
+  end
+
   describe ".from_hash" do
     let(:started_at) { Time.now }
     let(:points) {[
