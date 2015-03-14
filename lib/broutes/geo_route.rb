@@ -124,16 +124,40 @@ module Broutes
       points.map { |p| p.power || 0 }.inject { |sum, p| sum + p } / points.count
     end
 
+    # Public: Get maximum speed for whole GeoRoute.
+    #
+    # Examples
+    #   @route.maximum_speed
+    #   # => 5.50
+    #
+    # Returns Float maximum, or 0.0 if no speed on points.
+    def maximum_speed
+      points = @_points
+      points.map { |p| p.speed }.compact.max || 0.0
+    end
+
+    # Public: Get minimum speed for whole GeoRoute.
+    #
+    # Examples
+    #   @route.minimum_speed
+    #   # => 1.50
+    #
+    # Returns Float minimum, or 0.0 if no speed on points.
+    def minimum_speed
+      points = @_points
+      points.map { |p| p.speed }.compact.min || 0.0
+    end
+
     # Public: Get average speed for whole GeoRoute.
     #
     # Examples
     #   @route.average_speed
     #   # => 2.50
     #
-    # Returns Float average, or 0 if no speed on points.
+    # Returns Float average, or 0.0 if no speed on points.
     def average_speed
       points = @_points
-      points.map { |p| p.speed || 0 }.inject { |sum, p| sum + p } / points.count
+      points.map { |p| p.speed || 0.0 }.inject { |sum, p| sum + p } / points.count
     end
 
     # Public: Get maximum heart rate for whole GeoRoute.
