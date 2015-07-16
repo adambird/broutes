@@ -36,3 +36,5 @@ The format string can either be a symbol, mimetype or filename from which the ex
 
 The result route file will have a total distance, ascent and descent info as well as start and end points. Each point will also have it's location, elevation and distance along the route.
 
+If the format used supports laps (TCX formats), the route will also have each lap. Each lap will have it's start time, total time, distance covered, calories burned, the average and maximum speed, and the average and maximum heart rate.
+

@@ -9,10 +9,16 @@ module Broutes
       get_points.to_enum
     end
 
+    def laps
+      get_laps.to_enum
+    end
+
     def initialize(args={})
       args.each_pair do |key, value|
         if key.to_sym == :points
           value.each { |p| add_point(p) }
+        elsif key.to_sym == :laps
+          value.each { |l| add_lap(l) }
         else
           send("#{key}=", value) if respond_to?("#{key}=")
         end
@@ -59,6 +65,10 @@ module Broutes
 
       @end_point = point
       get_points << point
+    end
+
+    def add_lap(args)
+      get_laps << Lap.new(args)
     end
 
     def process_elevation_delta(last_point, new_point)
@@ -208,10 +218,26 @@ module Broutes
       points.map { |p| p.elevation }.compact.min || 0
     end
 
+    # Public: Get total calories for whole GeoRoute.
+    #
+    # Examples
+    #   @route.total_calories
+    #   # => 10
+    #
+    # Returns Integer calories, or 0 if no calories on laps.
+    def total_calories
+      laps = @_laps
+      laps.map { |l| l.calories || 0 }.inject { |sum, l| sum + l }
+    end
+
     private
 
     def get_points
       @_points ||= []
+    end
+
+    def get_laps
+      @_laps ||= []
     end
   end
 end

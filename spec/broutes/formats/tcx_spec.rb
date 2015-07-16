@@ -102,6 +102,39 @@ describe Formats::Tcx do
     it "can create hash" do
       @route.to_hash
     end
+
+    context "laps" do
+      it "sets the laps" do
+        @route.laps.count.should eq(3)
+      end
+      it "sets the total number of calories burned" do
+        @route.total_calories.should eq(905)
+      end
+      it "sets the start time" do
+        @route.laps.first.start_time.should eq(DateTime.new(2012, 3, 22, 7, 17, 45, "+00:00"))
+      end
+      it "sets the total time" do
+        @route.laps.first.total_time.to_i.should eq(600)
+      end
+      it "sets the distance" do
+        @route.laps.first.distance.should eq(222.5399933)
+      end
+      it "sets the number of calories burned" do
+        @route.laps.first.calories.should eq(18)
+      end
+      it "sets the average speed" do
+        @route.laps.first.average_speed.should eq(0.37)
+      end
+      it "sets the maximum speed" do
+        @route.laps.first.maximum_speed.should eq(5.5380001)
+      end
+      it "sets the average heart rate" do
+        @route.laps.first.average_heart_rate.should eq(81)
+      end
+      it "sets the maximum heart rate" do
+        @route.laps.first.maximum_heart_rate.should eq(95)
+      end
+    end
   end
 
   describe "file without GPS coordinates" do
