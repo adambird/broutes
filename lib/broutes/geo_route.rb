@@ -35,7 +35,8 @@ module Broutes
         'total_time' => total_time,
         'total_ascent' => total_ascent,
         'total_descent' => total_ascent,
-        'points' => points.collect { |p| p.to_hash }
+        'points' => points.collect { |p| p.to_hash },
+        'laps' => laps.collect { |l| l.to_hash }
       }
       h['start_point'] = start_point.to_hash if start_point
       h['end_point'] = end_point.to_hash if end_point
