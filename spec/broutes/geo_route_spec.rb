@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe GeoRoute do
   describe "#add_point" do
@@ -378,6 +379,34 @@ describe GeoRoute do
       end
       it 'should return 0' do
         @route.average_speed.should eq(0)
+      end
+    end
+  end
+
+  describe "#total_calories" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when route laps have calories' do
+      before(:each) do
+        @route.add_lap(calories: 12)
+      end
+      it 'should return the calories' do
+        @route.total_calories.should eq(12)
+      end
+    end
+    context 'when route laps do not have calories' do
+      before(:each) do
+        @route.add_lap(distance: random_integer)
+      end
+      it 'should return 0' do
+        @route.total_calories.should eq(0)
+      end
+    end
+    context 'when route does not have laps' do
+      it 'should return 0' do
+        @route.total_calories.should eq(0)
       end
     end
   end

@@ -225,10 +225,9 @@ module Broutes
     #   @route.total_calories
     #   # => 10
     #
-    # Returns Integer calories, or 0 if no calories on laps.
+    # Returns Integer calories, 0 if no calories on laps or no laps on the route.
     def total_calories
-      laps = @_laps
-      laps.map { |l| l.calories || 0 }.inject { |sum, l| sum + l }
+      laps.map { |l| l.calories }.inject { |sum, l| sum + l } || 0
     end
 
     private
