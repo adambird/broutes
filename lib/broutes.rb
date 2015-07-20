@@ -2,6 +2,7 @@ module Broutes
   require 'logger'
   require_relative 'broutes/geo_route'
   require_relative 'broutes/geo_point'
+  require_relative 'broutes/lap'
   require_relative 'broutes/maths'
   require_relative 'broutes/formats'
 

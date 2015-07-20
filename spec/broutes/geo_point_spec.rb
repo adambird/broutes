@@ -5,16 +5,16 @@ describe GeoPoint do
     before(:each) do
       @point = GeoPoint.new(lat: random_lat, lon: random_lon)
     end
-    
+
     subject { @point.to_hash }
-    
+
     it "contains lat" do
       subject['lat'].should eq(@point.lat)
     end
     it "contains lon" do
       subject['lon'].should eq(@point.lon)
     end
-    
+
     context "when only lat lon set" do
       it "should not contain distance" do
         subject.keys.should_not include('distance')

@@ -9,10 +9,16 @@ module Broutes
       get_points.to_enum
     end
 
+    def laps
+      get_laps.to_enum
+    end
+
     def initialize(args={})
       args.each_pair do |key, value|
         if key.to_sym == :points
           value.each { |p| add_point(p) }
+        elsif key.to_sym == :laps
+          value.each { |l| add_lap(l) }
         else
           send("#{key}=", value) if respond_to?("#{key}=")
         end
@@ -29,7 +35,8 @@ module Broutes
         'total_time' => total_time,
         'total_ascent' => total_ascent,
         'total_descent' => total_ascent,
-        'points' => points.collect { |p| p.to_hash }
+        'points' => points.collect { |p| p.to_hash },
+        'laps' => laps.collect { |l| l.to_hash }
       }
       h['start_point'] = start_point.to_hash if start_point
       h['end_point'] = end_point.to_hash if end_point
@@ -59,6 +66,10 @@ module Broutes
 
       @end_point = point
       get_points << point
+    end
+
+    def add_lap(args)
+      get_laps << Lap.new(args)
     end
 
     def process_elevation_delta(last_point, new_point)
@@ -124,6 +135,42 @@ module Broutes
       points.map { |p| p.power || 0 }.inject { |sum, p| sum + p } / points.count
     end
 
+    # Public: Get maximum speed for whole GeoRoute.
+    #
+    # Examples
+    #   @route.maximum_speed
+    #   # => 5.50
+    #
+    # Returns Float maximum, or 0.0 if no speed on points.
+    def maximum_speed
+      points = @_points
+      points.map { |p| p.speed }.compact.max || 0.0
+    end
+
+    # Public: Get minimum speed for whole GeoRoute.
+    #
+    # Examples
+    #   @route.minimum_speed
+    #   # => 1.50
+    #
+    # Returns Float minimum, or 0.0 if no speed on points.
+    def minimum_speed
+      points = @_points
+      points.map { |p| p.speed }.compact.min || 0.0
+    end
+
+    # Public: Get average speed for whole GeoRoute.
+    #
+    # Examples
+    #   @route.average_speed
+    #   # => 2.50
+    #
+    # Returns Float average, or 0.0 if no speed on points.
+    def average_speed
+      points = @_points
+      points.map { |p| p.speed || 0.0 }.inject { |sum, p| sum + p } / points.count
+    end
+
     # Public: Get maximum heart rate for whole GeoRoute.
     #
     # Examples
@@ -172,10 +219,25 @@ module Broutes
       points.map { |p| p.elevation }.compact.min || 0
     end
 
+    # Public: Get total calories for whole GeoRoute.
+    #
+    # Examples
+    #   @route.total_calories
+    #   # => 10
+    #
+    # Returns Integer calories, 0 if no calories on laps or no laps on the route.
+    def total_calories
+      laps.map { |l| l.calories }.inject { |sum, l| sum + l } || 0
+    end
+
     private
 
     def get_points
       @_points ||= []
+    end
+
+    def get_laps
+      @_laps ||= []
     end
   end
 end

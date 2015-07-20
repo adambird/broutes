@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe GeoRoute do
   describe "#add_point" do
@@ -310,16 +311,122 @@ describe GeoRoute do
     end
   end
 
+  describe "#maximum_speed" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have speed' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 4.00)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 2.00)
+      end
+      it 'should return maximum speed' do
+        @route.maximum_speed.should eq(4.00)
+      end
+    end
+    context 'when the route points have no speed' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.maximum_speed.should eq(0.0)
+      end
+    end
+  end
+
+  describe "#minimum_speed" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have speed' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 4.00)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 2.00)
+      end
+      it 'should return minimum speed' do
+        @route.minimum_speed.should eq(2.00)
+      end
+    end
+    context 'when the route points have no speed' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.minimum_speed.should eq(0.0)
+      end
+    end
+  end
+
+  describe "#average_speed" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when the route points have speed' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 4.00)
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation, speed: 2.00)
+      end
+      it 'should return average speed' do
+        @route.average_speed.should eq(3.00)
+      end
+    end
+    context 'when the route points have no speed' do
+      before(:each) do
+        @route.add_point(lat: random_lat, lon: random_lon, elevation: random_elevation)
+      end
+      it 'should return 0' do
+        @route.average_speed.should eq(0)
+      end
+    end
+  end
+
+  describe "#total_calories" do
+    before(:each) do
+      @route = GeoRoute.new
+    end
+
+    context 'when route laps have calories' do
+      before(:each) do
+        @route.add_lap(calories: 12)
+      end
+      it 'should return the calories' do
+        @route.total_calories.should eq(12)
+      end
+    end
+    context 'when route laps do not have calories' do
+      before(:each) do
+        @route.add_lap(distance: random_integer)
+      end
+      it 'should return 0' do
+        @route.total_calories.should eq(0)
+      end
+    end
+    context 'when route does not have laps' do
+      it 'should return 0' do
+        @route.total_calories.should eq(0)
+      end
+    end
+  end
+
   describe ".from_hash" do
     let(:started_at) { Time.now }
     let(:points) {[
       GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at),
       GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at + 1),
-      GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at + 2)
+      GeoPoint.new(lat: random_lat, lon: random_lon, time: started_at + 2),
+      ]}
+    let(:laps) {[
+      Lap.new(start_time: started_at, distance: random_integer, time: random_integer),
+      Lap.new(start_time: started_at + 1, distance: random_integer, time: random_integer),
+      Lap.new(start_time: started_at + 2, distance: random_integer, time: random_integer)
       ]}
     let(:hash) {{
       'started_at' => started_at,
-      'points' => points.collect { |p| p.to_hash }
+      'points' => points.collect { |p| p.to_hash },
+      'laps' => laps.collect { |l| l.to_hash }
     }}
 
     subject { GeoRoute.from_hash hash }
@@ -329,6 +436,9 @@ describe GeoRoute do
     end
     it "has the requisite number of points" do
       subject.points.count.should eq(points.count)
+    end
+    it "has the requisite number of laps" do
+      subject.laps.count.should eq(laps.count)
     end
   end
 end
