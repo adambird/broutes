@@ -34,7 +34,7 @@ module Broutes::Formats
     def record_time(record)
       utc_seconds = record.content.timestamp
       utc_seconds += record.header.time_offset if record.header.compressed_timestamp? 
-      Time.new(1989, 12, 31) + utc_seconds
+      Time.new(1989, 12, 31, 0, 0, 0, "+00:00") + utc_seconds #seconds since UTC 00:00 Dec 31 1989
     end
 
   end
